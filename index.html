@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
+ <style>
         body{
             background-color: black;
             color: white;
@@ -12,12 +12,12 @@
             flex-direction: column;
             align-items: center;
             justify-content: space-around;
-          
+            
         }
 
      
         h1{
-            font-size: 40px;
+            font-size: 25px;
             color: gray;
             text-align: center;
             margin: 40px 0 10px 0;
@@ -26,20 +26,70 @@
 
         .text-tittle{
             text-align: center;
-            font-size: 25px;
+            font-size: 18px;
             color: gray;
             margin-bottom: 10px;
         }
 
         .textarea-container{
             display: block;
-            width: 50%;
+            width: 80%;
             padding: 20px;
              margin: 20px auto;
              border: 1px solid gray;
             border-radius: 10px;
             box-shadow: inset 0 0 1.8rem rgb(217, 65, 65);
         }
+
+
+
+        
+@media  screen and (min-width: 468px) {
+       .textarea-container{
+            
+            width: 70%;
+          
+        }
+          .text-tittle{
+            text-align: center;
+            font-size: 25px;
+            color: gray;
+            margin-bottom: 10px;
+        }
+
+        h1{
+            font-size: 30px;
+           
+        }
+}
+
+
+@media  screen and (min-width: 768px) {
+      
+          .text-tittle{
+            text-align: center;
+            font-size: 25px;
+            color: gray;
+            margin-bottom: 10px;
+        }
+
+        h1{
+            font-size: 30px;
+           
+        }
+}
+
+
+@media  screen and (min-width: 768px) {
+      
+       
+
+        h1{
+            font-size: 40px;
+           
+        }
+}
+
         textarea{
             display: block;
             width: 100%;
@@ -177,4 +227,5 @@
 
 
 </body>
+
 </html>

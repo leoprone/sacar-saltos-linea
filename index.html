@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: black;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+          
+        }
+
+     
+        h1{
+            font-size: 40px;
+            color: gray;
+            text-align: center;
+            margin: 40px 0 10px 0;
+        }
+
+
+        .text-tittle{
+            text-align: center;
+            font-size: 25px;
+            color: gray;
+            margin-bottom: 10px;
+        }
+
+        .textarea-container{
+            display: block;
+            width: 50%;
+            padding: 20px;
+             margin: 20px auto;
+             border: 1px solid gray;
+            border-radius: 10px;
+            box-shadow: inset 0 0 1.8rem rgb(217, 65, 65);
+        }
+        textarea{
+            display: block;
+            width: 100%;
+            color: white;
+            background-color: transparent;
+            border: none;
+            outline: none;
+            resize: vertical; /* permite redimensionar verticalmente */
+        }
+
+           textarea:focus {
+                border: none;
+                outline: none;
+            }
+
+            .buttons-container{
+                width: 40%;
+                margin: 0px auto;
+              
+                display: flex;
+                justify-content: center;
+            }
+        button{
+             display: inline-block;
+             width: auto;
+             color: white;
+             padding: 10px;
+             margin: 5px 10px;
+             border: 1px solid gray;
+            border-radius: 10px;
+            background-color: transparent;
+        }
+
+        button:hover{
+            transition: .2s linear;
+            background-color: rgb(54, 54, 54);
+        }
+
+        @keyframes Animation-btn{
+            0%{
+                 box-shadow: 0 0 .5rem .2rem rgb(212, 212, 212);
+                 background-color: green;
+            }
+              50%{
+                box-shadow: 0 0 .1rem .2rem gray;
+                background-color: green;
+            }
+              100%{
+                box-shadow: 0 0 .5rem .2rem rgb(212, 212, 212);
+                background-color: green;
+            }
+        }
+
+        .animation-btn{
+              animation: Animation-btn 1s linear infinite;
+             
+        }
+
+        .display-none{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Procesador de transcripciones</h1>
+    <div class="textarea-container">
+        <div class="text-tittle">Copiar texto original</div>
+        <textarea id="input" rows="10" cols="60"
+        placeholder="Pega aquí la transcripción con saltos de línea..."></textarea>
+    </div>
+  
+<div class="buttons-container">
+    <button id="procesar">Eliminar saltos de línea</button>
+    <button class="display-none" id="copiar">Copiar texto procesado</button>
+    <button class="display-none" id="resetear">Resetear todo</button>
+</div>
+
+     <div class="textarea-container">
+        <div class="text-tittle">Texto procesado</div>
+        <textarea id="output" rows="10" cols="60"
+        placeholder="Aquí verás el texto sin saltos de línea"></textarea>
+
+     </div>
+
+<script>
+  function normalizarTranscripcion(texto) {
+    return texto
+      .replace(/(\r\n|\n|\r)/gm, ' ') // saltos -> espacio
+      .replace(/\s+/g, ' ')          // espacios repetidos -> uno
+      .trim();
+  }
+
+  const btnCopiar =  document.getElementById('copiar'),
+  btnResetear = document.getElementById('resetear'),
+  btnProcesar = document.getElementById('procesar');
+
+ btnProcesar.addEventListener('click', () => {
+    const entrada = document.getElementById('input').value;
+    if(entrada != ''){
+        const salida = normalizarTranscripcion(entrada);
+        document.getElementById('output').value = salida;
+        btnCopiar.classList.remove("display-none");
+        btnResetear.classList.remove("display-none");
+        btnProcesar.classList.add("display-none");
+    }
+   
+  });
+
+  
+
+  
+  btnCopiar.addEventListener('click', async () => {
+    const texto = document.getElementById('output').value;
+    if (!texto) return;
+    try {
+      await navigator.clipboard.writeText(texto);
+
+      btnCopiar.textContent='texto copiado';
+      btnCopiar.classList.add("animation-btn");
+    } catch (e) {
+      alert('No se pudo copiar automáticamente. Copia el texto manualmente.');
+    }
+  });
+
+   btnResetear.addEventListener('click', () => {
+    document.getElementById('input').value = '';
+    document.getElementById('output').value = '';
+    btnCopiar.classList.add("display-none");
+    btnResetear.classList.add("display-none");
+    btnCopiar.textContent='copiar texto procesado';
+    btnCopiar.classList.remove("animation-btn");  
+    btnProcesar.classList.remove("display-none");  
+  });
+</script>
+
+
+</body>
+</html>
